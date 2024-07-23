@@ -5,3 +5,4 @@ int main(void)
 {
     cout << "Hello, world!" << endl;
 }
+

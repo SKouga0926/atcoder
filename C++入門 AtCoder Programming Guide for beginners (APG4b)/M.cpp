@@ -11,15 +11,15 @@ int main(void)
 
     for (int i = 0; i < size; i++)
     {
-    if (S.at(i) == '+')
-    {
-        value = value + 1;
-    }
+        if (S.at(i) == '+')
+        {
+            value = value + 1;
+        }
 
-    if (S.at(i) == '-')
-    {
-        value = value - 1;
-    }
+        if (S.at(i) == '-')
+        {
+            value = value - 1;
+        }
     }
   
     cout << value << endl;
