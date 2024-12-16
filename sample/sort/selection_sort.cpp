@@ -12,6 +12,7 @@ int main(void)
     cin >> N;
     for (int i = 1; i <= N; i++) cin >> A[i];
 
+    // ソート
     for (int i = 1; i <= N - 1; i++) {
 
         int minIndex = i;
@@ -25,6 +26,7 @@ int main(void)
         swap(A[i], A[minIndex]);
     }
 
+    // 表示
     for (int i = 1; i <= N; i++) cout << A[i] << " ";
     cout << endl;
 

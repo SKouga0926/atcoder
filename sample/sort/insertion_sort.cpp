@@ -12,6 +12,7 @@ int main(void)
     cin >> N;
     for (int i = 0; i < N; i++) cin >> A[i];
 
+    // ソート
     for (int i = 1; i < N; i++) {
         int j = i;
 
@@ -21,6 +22,7 @@ int main(void)
         }
     }
 
+    // 表示
     for (int i = 0; i < N; i++) cout << A[i] << " ";
     cout << endl;
     

@@ -1,63 +1,59 @@
-#include <iostream>
 using namespace std;
+#include <bits/stdc++.h>
 
-// 配列の2つの要素を交換する関数
-void swap(int A[], int i, int j) {
-    int temp = A[i];
-    A[i] = A[j];
-    A[j] = temp;
-}
+typedef long long ll;
 
-// 親子を比較しながら下に降りる関数
-void down_to_leaf(int A[], int N, int target) {
-    int left = target * 2 + 1;
-    int right = target * 2 + 2;
-    int max_idx = target;
+// ヒープを再構築する関数（Heapify）
+void heapify(int A[], int n, int i) {
+    int largest = i; // 最大値の位置
+    int left = 2 * i + 1; // 左の子ノード
+    int right = 2 * i + 2; // 右の子ノード
 
-    // 左の子ノードが存在し、親より大きい場合
-    if (left < N && A[left] > A[max_idx]) {
-        max_idx = left;
-    }
+    // 左の子ノードが親ノードより大きい場合
+    if (left < n && A[left] > A[largest])
+        largest = left;
 
-    // 右の子ノードが存在し、親より大きい場合
-    if (right < N && A[right] > A[max_idx]) {
-        max_idx = right;
-    }
+    // 右の子ノードが最大値より大きい場合
+    if (right < n && A[right] > A[largest])
+        largest = right;
 
-    // 最大値が親でない場合、入れ替えて再帰的に実行
-    if (max_idx != target) {
-        swap(A, max_idx, target);
-        down_to_leaf(A, N, max_idx);
+    // 最大値が親ノードでない場合、入れ替えて再帰的に処理
+    if (largest != i) {
+        swap(A[i], A[largest]);
+        heapify(A, n, largest);
     }
 }
 
-// ヒープ構造を作成する関数
-void heapify(int A[], int N) {
-    for (int i = N / 2 - 1; i >= 0; i--) {
-        down_to_leaf(A, N, i);
-    }
-}
+// ヒープソート関数
+void heapSort(int A[], int n) {
+    // 配列をヒープ化する（Build Heap）
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(A, n, i);
 
-// ヒープソートを実行する関数
-void heap_sort(int A[], int N) {
-    heapify(A, N);
+    // 要素を一つずつヒープから取り出してソート
+    for (int i = n - 1; i > 0; i--) {
+        // 現在の最大値（根ノード）を末尾と交換
+        swap(A[0], A[i]);
 
-    for (int i = N - 1; i > 0; i--) {
-        swap(A, 0, i);  // ルート（最大値）を末尾に移動
-        down_to_leaf(A, i, 0);  // 残りの部分に対してヒープを再構築
+        // ヒープサイズを減らして再構築
+        heapify(A, i, 0);
     }
 }
 
 int main() {
-    int A[] = {3, 19, 1, 14, 8, 7};
-    int N = sizeof(A) / sizeof(A[0]);
+    // 入力
+    int N;
+    cin >> N;
+    int A[N];
+    for (int i = 0; i < N; i++)
+        cin >> A[i];
 
-    heap_sort(A, N);
+    // ヒープソートを呼び出し
+    heapSort(A, N);
 
-    cout << "Sorted array: ";
-    for (int i = 0; i < N; i++) {
+    // 出力
+    for (int i = 0; i < N; i++)
         cout << A[i] << " ";
-    }
     cout << endl;
 
     return 0;
